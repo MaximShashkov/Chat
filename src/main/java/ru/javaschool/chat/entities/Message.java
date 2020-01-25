@@ -55,4 +55,20 @@ public class Message {
     public String getMessageText() {
         return messageText;
     }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
+    public void setMessageTime(LocalDateTime messageTime) {
+        this.messageTime = messageTime;
+    }
+
+    public void setMessageText(String messageText) {
+        this.messageText = messageText;
+    }
 }

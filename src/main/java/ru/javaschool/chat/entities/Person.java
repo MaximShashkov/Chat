@@ -10,7 +10,7 @@ public class Person {
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    int id;
+    long id;
 
     @Column
     String nickName;

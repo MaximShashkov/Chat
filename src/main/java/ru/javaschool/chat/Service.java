@@ -6,20 +6,72 @@ import ru.javaschool.chat.entities.Message;
 import ru.javaschool.chat.repository.ChatRepository;
 import ru.javaschool.chat.repository.MessageRepository;
 import ru.javaschool.chat.repository.PeopleRepository;
+import ru.javaschool.chat.utils.MessageRequest;
+import ru.javaschool.chat.utils.MessageResponse;
+import ru.javaschool.chat.utils.MessageStatus;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class Service {
 
     @Autowired
-    ChatRepository chatRepository;
+    private ChatRepository chatRepository;
 
     @Autowired
-    MessageRepository messageRepository;
+    private MessageRepository messageRepository;
 
     @Autowired
-    PeopleRepository peopleRepository;
+    private PeopleRepository peopleRepository;
+
+    public MessageResponse sendMessage(MessageRequest rawMessage){
+        MessageResponse messageResponse = new MessageResponse();
+        List<MessageStatus> statuses = validate(rawMessage);
+        //если нет ошибок пытается сохранить сообщение
+        if(statuses.size()==0){
+            Message message = createMessage(rawMessage);
+            try{
+                Message saveMessage = messageRepository.save(message);
+                messageResponse.setMessageID(saveMessage.getId());
+                statuses.add(MessageStatus.SUCCESS);
+            }
+            catch (Exception e){
+                statuses.add(MessageStatus.FAILEDTOSAVE);
+                //здесь должен быть логгер
+                e.printStackTrace();
+            }
+        }
+        messageResponse.setStatus(statuses);
+        return messageResponse;
+    }
+
+    private List<MessageStatus> validate(MessageRequest rawMessage){
+        List<MessageStatus> statuses = new ArrayList<>();
+        if(!peopleRepository.existsById(rawMessage.getAuthorID())){
+            statuses.add(MessageStatus.AUTHORNOTFOUND);
+        }
+        if(!chatRepository.existsById(rawMessage.getChatID())){
+            statuses.add(MessageStatus.CHATNOTFOUND);
+        }
+        else if(chatRepository.getOne(rawMessage.getChatID()).isClosed()){
+            statuses.add(MessageStatus.CHATISCLOSED);
+        }
+        if(rawMessage.getTextMessage().trim().length()==0){
+            statuses.add(MessageStatus.MESSAGEISEMPTY);
+        }
+        return statuses;
+    }
+
+    private Message createMessage(MessageRequest rawMessage){
+       Message message = new Message();
+        message.setChat(chatRepository.getOne(rawMessage.getChatID()));
+        message.setPerson(peopleRepository.getOne(rawMessage.getAuthorID()));
+        message.setMessageText(rawMessage.getTextMessage());
+        message.setMessageTime(LocalDateTime.now());
+       return message;
+    }
 
     public List<Message> getMessagesFromCurrent(int chatId){
         return messageRepository.findBychat_id(chatId);
