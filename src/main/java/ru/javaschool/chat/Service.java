@@ -21,6 +21,10 @@ public class Service {
     @Autowired
     PeopleRepository peopleRepository;
 
+    public List<Message> getMessagesFromCurrent(int chatId){
+        return messageRepository.findBychat_id(chatId);
+    }
+
     public List<Message> getMessagesFromClosed(){
         return messageRepository.findBychat_closed(true);
     }
