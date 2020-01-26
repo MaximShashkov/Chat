@@ -1,9 +1,10 @@
 package ru.javaschool.chat.entities;
 
 import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
-@Table(name="Chats")
+@Table(name = "Chats")
 @Entity
 @Component
 public class Chat {
@@ -20,15 +21,15 @@ public class Chat {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+//    public void setId(long id) {
+//        this.id = id;
+//    }
 
     public boolean isClosed() {
         return closed;
     }
 
-    public void setClosed(boolean closed) {
-        this.closed = closed;
-    }
+//    public void setClosed(boolean closed) {
+//        this.closed = closed;
+//    }
 }

@@ -11,21 +11,21 @@ import java.util.List;
 
 @RestController
 public class Controller {
-@Autowired
+    @Autowired
     Service service;
 
-    @PostMapping("sendMessage")
-    public MessageResponse sendMessage(@RequestBody MessageRequest rawMessage){
+    @PostMapping(value = "sendMessage", consumes = "application/json", produces = "application/json")
+    public MessageResponse sendMessage(@RequestBody MessageRequest rawMessage) {
         return service.sendMessage(rawMessage);
     }
 
-    @GetMapping("getMessagesFromCurrent")
-    public List<Message> getMessagesFromCurrent(@RequestParam int chatId){
+    @GetMapping(value = "getMessagesFromCurrent", produces = "application/json")
+    public List<Message> getMessagesFromCurrent(@RequestParam long chatId) {
         return service.getMessagesFromCurrent(chatId);
     }
 
-    @GetMapping("getMessagesFromClosed")
-    public List<Message> getMessagesFromClosed(){
+    @GetMapping(value = "getMessagesFromClosed", produces = "application/json")
+    public List<Message> getMessagesFromClosed() {
         return service.getMessagesFromClosed();
     }
 }

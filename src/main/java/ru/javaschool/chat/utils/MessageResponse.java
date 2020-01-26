@@ -5,14 +5,22 @@ import java.util.List;
 
 //возращается после sendMessage
 public class MessageResponse {
-    private List<MessageStatus> status=new ArrayList<>();
+    private List<MessageStatus> statuses = new ArrayList<>();
     private long messageID;
 
-    public void setStatus(List<MessageStatus> status) {
-        this.status = status;
+    public void setStatuses(List<MessageStatus> status) {
+        this.statuses = status;
     }
 
     public void setMessageID(long messageID) {
         this.messageID = messageID;
+    }
+
+    public List<MessageStatus> getStatuses() {
+        return statuses;
+    }
+
+    public long getMessageID() {
+        return messageID;
     }
 }

@@ -1,4 +1,4 @@
-package ru.javaschool.chat.repository;
+package ru.javaschool.chat.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.javaschool.chat.entities.Person;
