@@ -1,9 +1,10 @@
 package ru.javaschool.chat.entities;
 
 import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
-@Table(name="Chats")
+@Table(name = "Chats")
 @Entity
 @Component
 public class Chat {

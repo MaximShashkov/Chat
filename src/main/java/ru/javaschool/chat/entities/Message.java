@@ -1,17 +1,18 @@
 package ru.javaschool.chat.entities;
 
 import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Table(name="Messages")
+@Table(name = "Messages")
 @Entity
 @Component
 public class Message {
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-   private long id;
+    private long id;
 
     @ManyToOne
     private Person person;
