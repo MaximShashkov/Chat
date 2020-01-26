@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 public class Controller {
     @Autowired
-    Service service;
+    private Service service;
 
     @PostMapping(value = "sendMessage", consumes = "application/json", produces = "application/json")
     public MessageResponse sendMessage(@RequestBody MessageRequest rawMessage) {

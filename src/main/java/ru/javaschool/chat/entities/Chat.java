@@ -21,15 +21,15 @@ public class Chat {
         return id;
     }
 
-//    public void setId(long id) {
-//        this.id = id;
-//    }
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public boolean isClosed() {
         return closed;
     }
 
-//    public void setClosed(boolean closed) {
-//        this.closed = closed;
-//    }
+    public void setClosed(boolean closed) {
+        this.closed = closed;
+    }
 }
